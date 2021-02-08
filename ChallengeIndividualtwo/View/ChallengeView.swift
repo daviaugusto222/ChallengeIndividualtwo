@@ -11,14 +11,7 @@ class ChallengeView: UIView {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        guard let customFont = UIFont(name: "Poppins-Bold", size: 22) else {
-            fatalError("""
-                Failed to load the "Poppins-Bold" font.
-                Make sure the font file is included in the project and the font name is spelled correctly.
-                """
-            )
-        }
-        label.font = UIFontMetrics.default.scaledFont(for: customFont)
+        label.font = UIFontMetrics.default.scaledFont(for: CustomFonts(name: "Poppins-Bold", size: 22))
         label.numberOfLines = 0
         label.text = "Desenhe, ilustre, pinte, \nrabisque ou faça arte usando…"
         label.textColor = .grayTitle
@@ -28,22 +21,38 @@ class ChallengeView: UIView {
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let cellWidthHeightConstant: CGFloat = UIScreen.main.bounds.width * 0.2
+        let cellWidthConstant: CGFloat = UIScreen.main.bounds.width * 0.9
+        let cellHeightConstant: CGFloat = UIScreen.main.bounds.height * 0.59
         layout.sectionInset = UIEdgeInsets(top: 0,
-                                           left: 10,
+                                           left: 16,
                                            bottom: 0,
-                                           right: 10)
-        layout.scrollDirection = .vertical
+                                           right: 0)
+        layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
-        layout.itemSize = CGSize(width: cellWidthHeightConstant, height: cellWidthHeightConstant)
+        layout.itemSize = CGSize(width: cellWidthConstant, height: cellHeightConstant)
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.backgroundColor = .orange
+        collection.backgroundColor = .clear
         collection.translatesAutoresizingMaskIntoConstraints = false
+        collection.showsHorizontalScrollIndicator = false
+        collection.register(ChallengeCardCollectionViewCell.self, forCellWithReuseIdentifier: "ChallengeCardCollectionViewCell")
+        collection.register(AddArtCardCollectionViewCell.self, forCellWithReuseIdentifier: "AddArtCardCollectionViewCell")
+        collection.register(ShareCardCollectionViewCell.self, forCellWithReuseIdentifier: "ShareCardCollectionViewCell")
         return collection
     }()
     
-    
+    lazy var newCombinationButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Nova Combinação", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFontMetrics.default.scaledFont(for: CustomFonts(name: "Poppins-Medium", size: 14))
+        button.layer.cornerRadius = 20
+        button.setImage(UIImage(systemName: "arrow.triangle.2.circlepath"), for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = .orange
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,6 +70,7 @@ extension ChallengeView: ViewCode {
     func buildHierarchy() {
         addSubview(titleLabel)
         addSubview(collectionView)
+        addSubview(newCombinationButton)
     }
     
     func setUpLayoutConstraints() {
@@ -71,10 +81,17 @@ extension ChallengeView: ViewCode {
         ])
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 49),
+            collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            collectionView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6)
+        ])
+        
+        NSLayoutConstraint.activate([
+            newCombinationButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 40),
+            newCombinationButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            newCombinationButton.widthAnchor.constraint(equalTo: widthAnchor, constant: -180),
+            newCombinationButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     

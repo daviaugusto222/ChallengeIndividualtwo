@@ -11,9 +11,11 @@ public class ChallengeModel {
     
     let idChallenge: Double
     let title: String
+    let image: URL
     
-    init(idChallenge: Double, title: String) {
+    init(idChallenge: Double, title: String, image: URL) {
         self.idChallenge = idChallenge
         self.title = title
+        self.image = image
     }
 }
