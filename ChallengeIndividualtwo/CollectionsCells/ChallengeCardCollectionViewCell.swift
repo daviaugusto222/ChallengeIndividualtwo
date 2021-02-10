@@ -9,7 +9,6 @@ import UIKit
 
 class ChallengeCardCollectionViewCell: UICollectionViewCell {
     
-    
     static let identifier = "ChallengeCardCollectionViewCell"
     
     lazy var roundedBackgroundView: UIView = {
@@ -18,7 +17,7 @@ class ChallengeCardCollectionViewCell: UICollectionViewCell {
         view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
-       }()
+    }()
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Essa Pose"
@@ -30,27 +29,38 @@ class ChallengeCardCollectionViewCell: UICollectionViewCell {
     
     lazy var imageView: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "")
+        image.backgroundColor = .gray
         image.layer.cornerRadius = 20
-        image.backgroundColor = .yellow
-        image.contentMode = .scaleAspectFit
+        image.contentMode = .scaleAspectFill
+        image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
-     override init(frame: CGRect) {
-         super.init(frame: frame)
-     }
-     
-     required init?(coder: NSCoder) {
-         fatalError("init(coder:) has not been implemented")
-     }
-     
-     override func layoutSubviews() {
-         setUp()
-     }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
+    override func layoutSubviews() {
+        setUp()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = ""
+        imageView.image = nil
+    }
+    
+    func config(viewModel: ChallengeCardCellViewModel) {
+        self.titleLabel.text = viewModel.titleLabel()
+        if let img = viewModel.photoURL() {
+            self.imageView.load(url: img)
+        }
+    }
 }
 extension ChallengeCardCollectionViewCell: ViewCode {
     func buildHierarchy() {
@@ -76,13 +86,9 @@ extension ChallengeCardCollectionViewCell: ViewCode {
             imageView.trailingAnchor.constraint(equalTo: roundedBackgroundView.trailingAnchor, constant: -16),
             imageView.bottomAnchor.constraint(equalTo: roundedBackgroundView.bottomAnchor, constant: -16)
         ])
-        
-        
     }
     
     func aditionalConfigurations() {
         backgroundColor = .clear
     }
-    
-    
 }

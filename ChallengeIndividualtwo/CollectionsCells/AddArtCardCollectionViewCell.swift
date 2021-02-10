@@ -11,6 +11,8 @@ class AddArtCardCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "AddArtCardCollectionViewCell"
     
+    weak var delegate: AddArtDelegate?
+    
     lazy var roundedBackgroundView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 20
@@ -38,12 +40,15 @@ class AddArtCardCollectionViewCell: UICollectionViewCell {
         button.backgroundColor = .gray
         button.layer.cornerRadius = 20
         button.setImage(UIImage(systemName: "arrow.up"), for: .normal)
+        button.titleEdgeInsets.left = 20.0
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
      override init(frame: CGRect) {
          super.init(frame: frame)
+        
+        addArtButton.addTarget(self, action: #selector(addArtAction), for: .touchUpInside)
      }
      
      required init?(coder: NSCoder) {
@@ -53,6 +58,10 @@ class AddArtCardCollectionViewCell: UICollectionViewCell {
      override func layoutSubviews() {
          setUp()
      }
+    
+    @objc func addArtAction() {
+        delegate?.addArt()
+    }
 }
 
 extension AddArtCardCollectionViewCell: ViewCode {

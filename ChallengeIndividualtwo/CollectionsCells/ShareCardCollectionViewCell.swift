@@ -49,6 +49,8 @@ class ShareCardCollectionViewCell: UICollectionViewCell {
         button.backgroundColor = .gray
         button.layer.cornerRadius = 20
         button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
+//        button.imageEdgeInsets.right = 20.0
+        button.titleEdgeInsets.left = 20.0
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -105,4 +107,3 @@ extension ShareCardCollectionViewCell: ViewCode {
         backgroundColor = .clear
     }
 }
-
