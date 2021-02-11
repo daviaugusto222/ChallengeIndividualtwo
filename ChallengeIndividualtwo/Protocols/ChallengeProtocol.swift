@@ -9,6 +9,7 @@ import Foundation
 
 protocol ChallengeDelegate: class {
     func newCombination()
+    func newFavorite()
 }
 
 protocol AddArtDelegate: class {

@@ -10,12 +10,10 @@ import Foundation
 public class ChallengeCardCellViewModel: NSObject {
     private let title: String
     private let photo: PhotoModel?
-    private let background: String
     
-    init(title: String, photo: PhotoModel?, background: String) {
+    init(title: String, photo: PhotoModel?) {
         self.title = title
         self.photo = photo
-        self.background = background
     }
     
     public func titleLabel() -> String {
@@ -25,9 +23,5 @@ public class ChallengeCardCellViewModel: NSObject {
     public func photoURL() -> URL? {
         guard let imgURL = photo?.src.large2X else { return URL(string: "") }
         return URL(string: imgURL)
-    }
-    
-    public func backgroundColor() -> String {
-        return self.background
     }
 }

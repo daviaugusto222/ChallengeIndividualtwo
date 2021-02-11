@@ -11,9 +11,9 @@ import CoreData
 class ChallengeViewModel: NSObject {
     
     private var apiService: CategoryRepository!
-    var user: User?
-    var chalenge: Challenge?
     var databaseManager = DatabaseManager()
+    
+    var user: User?
     
     private(set) var photos: [ChallengeCardCellViewModel] = [] {
         didSet {
@@ -26,27 +26,42 @@ class ChallengeViewModel: NSObject {
     override init() {
         super.init()
         self.apiService = CategoryRepository()
-        self.user = databaseManager.getUser()
-        
+        user = databaseManager.getUser()
         searchPhotos()
-//        fetchPhotosFromCD()
-        
     }
-    
-//    func fetchPhotosFromCD(){
-//        let photos: [PhotoModel] = databaseManager.fetchPhotos()
-//        if !photos.isEmpty {
-//            for photo in photos {
-//                self.photos.append(ChallengeCardCellViewModel(title: photo.photographer, photo: photo, background: ""))
-//            }
-//        }
-//
-//    }
     
     var bindViewModelToController : (() -> ()) = {}
     
     func numberOfRows() -> Int {
-        return 4
+        return 3
+    }
+    
+    func favoreted() -> Bool {
+        return true
+    }
+    
+    func favoritedChallenge() {
+        
+        let context = DatabaseManager.persistentContainer.viewContext
+        
+        let newChallenge = Challenge(context: context)
+        newChallenge.favorited = true
+        newChallenge.title = "Sei nao depois penso"
+
+        
+        for photo in photos {
+            let newPhoto = Photo(context: context)
+            newPhoto.src = photo.photoURL()?.absoluteString
+            newPhoto.title = photo.titleLabel()
+            
+            newChallenge.addToPhotos(newPhoto)
+        }
+        
+        
+        user?.addToChallengers(newChallenge)
+        
+        databaseManager.saveContext()
+        
     }
     
     func artAdded() -> Bool {
@@ -60,52 +75,23 @@ class ChallengeViewModel: NSObject {
     
     func searchPhotos() {
        
-        let _ = databaseManager.fetchPhotos()
         self.photos = []
         let page = createNewCombination()
-        self.apiService.searchPhotos(type: .person ,page: page){ (photoPerson) in
-            let cell = ChallengeCardCellViewModel(title: ServiceApi.person.description, photo: photoPerson!, background: photoPerson!.avgColor)
+        self.apiService.searchPhoto(type: .person ,page: page){ (photoPerson) in
+            let cell = ChallengeCardCellViewModel(title: ServiceApi.person.description, photo: photoPerson!)
             self.photos.append(cell)
             
         }
-        self.apiService.searchPhotos(type: .pose, page: page){ (photoPose) in
-            let cell = ChallengeCardCellViewModel(title: ServiceApi.pose.description, photo: photoPose!, background: photoPose!.avgColor)
+        self.apiService.searchPhoto(type: .pose, page: page){ (photoPose) in
+            let cell = ChallengeCardCellViewModel(title: ServiceApi.pose.description, photo: photoPose!)
             self.photos.append(cell)
             
         }
-        self.apiService.searchPhotos(type: .scenery, page: page){ (photoScenery) in
-            let cell = ChallengeCardCellViewModel(title: ServiceApi.scenery.description, photo: photoScenery!, background: photoScenery!.avgColor)
+        self.apiService.searchPhoto(type: .scenery, page: page){ (photoScenery) in
+            let cell = ChallengeCardCellViewModel(title: ServiceApi.scenery.description, photo: photoScenery!)
             self.photos.append(cell)
             
         }
-        
-        
-//        if !photos.isEmpty {
-//            let newPhoto = Photo(context: DatabaseManager.persistentContainer.viewContext)
-//            newPhoto.photographer = "Foto salva 1"//photos[0].titleLabel()
-//            newPhoto.avgColor = photos[0].backgroundColor()
-//            newPhoto.src = photos[0].photoURL()?.absoluteString
-//
-//            let newPhotoPose = Photo(context: DatabaseManager.persistentContainer.viewContext)
-//            newPhotoPose.photographer = "Foto salva 2"//photos[0].titleLabel()
-//            newPhotoPose.avgColor = photos[1].backgroundColor()
-//            newPhotoPose.src = photos[1].photoURL()?.absoluteString
-//
-//            let newPhotoScenery = Photo(context: DatabaseManager.persistentContainer.viewContext)
-//            newPhotoScenery.photographer = "Foto salva 3"//photos[0].titleLabel()
-//            newPhotoScenery.avgColor = photos[2].backgroundColor()
-//            newPhotoScenery.src = photos[2].photoURL()?.absoluteString
-//
-//
-//
-//            chalenge?.addToPhotos(newPhoto)
-//            chalenge?.addToPhotos(newPhotoPose)
-//            chalenge?.addToPhotos(newPhotoScenery)
-//
-//            databaseManager.saveContext()
-//        }
-        
-        
         
     }
     
@@ -113,7 +99,7 @@ class ChallengeViewModel: NSObject {
         if index < self.photos.count {
             return self.photos[index]
         }
-        return ChallengeCardCellViewModel(title: "", photo: nil, background: "")
+        return ChallengeCardCellViewModel(title: "", photo: PhotoModel(src: Src(large2X: "")))
     }
     
 }

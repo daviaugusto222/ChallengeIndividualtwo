@@ -9,7 +9,7 @@ import Foundation
 
 class CategoryRepository {
     
-    func searchPhotos(type: ServiceApi, page: Int, completion: @escaping (PhotoModel?) -> Void) {
+    func searchPhoto(type: ServiceApi, page: Int, completion: @escaping (PhotoModel?) -> Void) {
         
         let url =  type.url!.absoluteString + "&per_page=1&page=\(page)"
         

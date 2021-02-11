@@ -17,6 +17,8 @@ extension Challenge {
     }
 
     @NSManaged public var title: String?
+    @NSManaged public var photoArt: Data?
+    @NSManaged public var favorited: Bool
     @NSManaged public var photos: NSSet?
     @NSManaged public var user: User?
 

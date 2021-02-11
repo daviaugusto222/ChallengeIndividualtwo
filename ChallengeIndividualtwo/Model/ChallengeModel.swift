@@ -8,8 +8,8 @@
 import Foundation
 
 struct ChallengeModel {
-    let title: String
+    let title: String?
     let photos: [PhotoModel]
-    let photoArt: Data
+    let photoArt: Data?
     let favorited: Bool
 }

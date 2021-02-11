@@ -64,7 +64,7 @@ class ChallengeView: UIView {
         button.setImage(UIImage(systemName: "heart"), for: .normal)
         button.tintColor = .white
         button.backgroundColor = .green
-        button.imageEdgeInsets.right = 20.0
+        button.imageEdgeInsets.right = 17.0
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -73,6 +73,7 @@ class ChallengeView: UIView {
         super.init(frame: frame)
         setUp()
         newCombinationButton.addTarget(self, action: #selector(newCombinationAction), for: .touchUpInside)
+        favoritesButton.addTarget(self, action: #selector(favoritesButtonAction), for: .touchUpInside)
     }
 
     required init?(coder: NSCoder) {
@@ -81,6 +82,10 @@ class ChallengeView: UIView {
     
     @objc func newCombinationAction() {
         delegate?.newCombination()
+    }
+    
+    @objc func favoritesButtonAction() {
+        delegate?.newFavorite()
     }
 
 }

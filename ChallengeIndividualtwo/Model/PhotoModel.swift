@@ -9,13 +9,9 @@ import Foundation
 
 struct PhotoModel: Codable {
 
-    let photographer: String
-    let avgColor: String
     let src: Src
 
     enum CodingKeys: String, CodingKey {
-        case photographer
-        case avgColor = "avg_color"
         case src
     }
 }

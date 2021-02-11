@@ -35,6 +35,22 @@ class ChallengeViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationBar.tintColor = .green
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(favoriteTapped))
+        navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: "Desafios", style: .plain, target: nil, action: nil)
+    }
+    
+    func changeUnfilled() {
+        navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart")
+    }
+    
+    @objc func favoriteTapped() {
+        if challengeViewModel.favoreted() {
+            //FAZ ALGO AQUI AAAAAA
+        }
+        navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart.fill")
+        challengeViewModel.favoritedChallenge()
     }
     
     func callToViewModelForUIUpdate() {
@@ -60,7 +76,7 @@ extension ChallengeViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         switch indexPath.row {
-        case 3:
+        case -1:
             if challengeViewModel.artAdded() {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddArtCardCollectionViewCell", for: indexPath) as! AddArtCardCollectionViewCell
                 cell.delegate = self
@@ -81,6 +97,12 @@ extension ChallengeViewController: UICollectionViewDelegate, UICollectionViewDat
 extension ChallengeViewController: ChallengeDelegate {
     func newCombination() {
         challengeViewModel.searchPhotos()
+        changeUnfilled()
+    }
+    
+    func newFavorite() {
+        let destination = FavoritesViewController()
+        navigationController?.pushViewController(destination, animated: true)
     }
 }
 

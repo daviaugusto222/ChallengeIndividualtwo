@@ -17,8 +17,7 @@ extension Photo {
     }
 
     @NSManaged public var src: String?
-    @NSManaged public var photographer: String?
-    @NSManaged public var avgColor: String?
+    @NSManaged public var title: String?
     @NSManaged public var challenge: Challenge?
 
 }

@@ -82,7 +82,7 @@ class DatabaseManager {
             let result = try context.fetch(request)
             let new = result as! [Photo]
             for photo in new {
-                photos.append(PhotoModel(photographer: photo.photographer!, avgColor: photo.avgColor!, src: Src(large2X: photo.src!)))
+                photos.append(PhotoModel(src: Src(large2X: photo.src!)))
             }
             
         }catch {
@@ -90,5 +90,38 @@ class DatabaseManager {
         }
         
         return photos
+    }
+    
+    func fetchChallenges() -> [ChallengeModel] {
+        let context = DatabaseManager.persistentContainer.viewContext
+        let request = NSFetchRequest<Challenge>(entityName: "Challenge")
+        request.returnsObjectsAsFaults = false
+        request.includesSubentities = true
+        var challenges: [ChallengeModel] = []
+        var photosChallenge: [PhotoModel] = []
+        do {
+            let result = try context.fetch(request)
+            for challenge in result {
+                photosChallenge = []
+                if let photos = challenge.photos {
+                    photos.forEach({ (foto) in
+                        guard let photo = foto as? Photo else {return}
+                        photosChallenge.append(PhotoModel(src: Src(large2X: photo.src!)))
+                    })
+                }
+                
+                let newChallenge = ChallengeModel(title: challenge.title, photos: photosChallenge, photoArt: challenge.photoArt, favorited: challenge.favorited)
+                challenges.append(newChallenge)
+                
+            }
+            
+            
+            
+            
+        }catch {
+            print("Erro carregar fotos")
+        }
+        
+        return challenges
     }
 }
