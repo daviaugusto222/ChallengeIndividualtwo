@@ -72,11 +72,15 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.row)
-//        let selectedFavorite = DetailsViewController()
-//        selectedFavorite.selectedFavorite = favoriteViewModel.CardCellVM(forIndex: indexPath.row)
-//        
+        //favotirecell to [challengecardcell] = ChallengeViewmodel
+        let selectedFavorite = DetailsViewController()
+//        let fav =
+//        let challenge = ChallengeCardCellViewModel(title: fav.titleLabel(), photo: fav.photosURL())
+
+        selectedFavorite.selectedFavorite = favoriteViewModel.CardCellVM(forIndex: indexPath.row)
+//
 //        selectedVaccine.cardViewController = self
-//        navigationController?.pushViewController(selectedVaccine, animated: true)
+        navigationController?.pushViewController(selectedFavorite, animated: true)
         
     }
     

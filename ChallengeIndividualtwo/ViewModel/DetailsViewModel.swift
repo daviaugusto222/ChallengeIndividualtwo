@@ -9,11 +9,7 @@ import UIKit
 
 class DetailsViewModel: NSObject {
     
-
-    private var apiService: CategoryRepository!
     var databaseManager = DatabaseManager()
-
-    var user: User?
 
     private(set) var photos: [ChallengeCardCellViewModel] = [] {
         didSet {
@@ -25,8 +21,6 @@ class DetailsViewModel: NSObject {
 
     override init() {
         super.init()
-        self.apiService = CategoryRepository()
-        user = databaseManager.getUser()
     }
 
     var bindViewModelToController : (() -> ()) = {}
@@ -50,12 +44,15 @@ class DetailsViewModel: NSObject {
     }
 
 
-    func getPhotos() {
-
-        self.photos = []
+    func getPhotos(challenge: FavoriteCardCellViewModel) {
         
-
-
+        guard let urls = challenge.photosURL() else {return}
+        for url in urls {
+            let photo = ChallengeCardCellViewModel(title: challenge.titleLabel(), photo: PhotoModel(src: Src(large2X: url.absoluteString)))
+            self.photos.append(photo)
+        }
+        
+        
     }
 
     public func CardCellVM(forIndex index: Int) -> ChallengeCardCellViewModel {

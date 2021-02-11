@@ -11,7 +11,7 @@ class DetailsViewController: UIViewController {
     
     private var detailsViewModel: DetailsViewModel!
     
-    var selectedFavorite: ChallengeCardCellViewModel!
+    var selectedFavorite: FavoriteCardCellViewModel!
     
     lazy var detailsView: DetailsView = {
         let view = DetailsView()
@@ -27,6 +27,8 @@ class DetailsViewController: UIViewController {
         //myView.delegate = self
         view = myView
         callToViewModelForUIUpdate()
+        
+        detailsViewModel.getPhotos(challenge: selectedFavorite)
         
     }
     
@@ -68,7 +70,7 @@ class DetailsViewController: UIViewController {
 
 extension DetailsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        3
+        detailsViewModel.numberOfRows()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -83,7 +85,7 @@ extension DetailsViewController: UICollectionViewDelegate, UICollectionViewDataS
             }
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChallengeCardCollectionViewCell", for: indexPath) as! ChallengeCardCollectionViewCell
-            cell.config(viewModel: selectedFavorite)
+            cell.config(viewModel: detailsViewModel.CardCellVM(forIndex: indexPath.row))
             return cell
         }
     }

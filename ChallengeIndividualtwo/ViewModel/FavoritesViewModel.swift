@@ -54,6 +54,6 @@ class FavoritesViewModel: NSObject {
         if index < self.challenges.count {
             return self.challenges[index]
         }
-        return FavoriteCardCellViewModel(title: "", photos: nil, photoArt: nil, favorited: false)
+        return FavoriteCardCellViewModel(title: "", photos: nil, photoArt: nil, favorited: true)
     }
 }
