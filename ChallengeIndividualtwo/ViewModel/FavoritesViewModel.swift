@@ -22,12 +22,10 @@ class FavoritesViewModel: NSObject {
     
     override init() {
         super.init()
-        
         fetchPhotosFromCD()
     }
     
     var bindViewModelToController : (() -> ()) = {}
-    
     
     func numberOfRows() -> Int {
         let rows = self.challenges.count
@@ -37,21 +35,17 @@ class FavoritesViewModel: NSObject {
         return challenges.count
     }
     
-    func fetchPhotosFromCD(){
+    func fetchPhotosFromCD() {
         let challengesCD: [ChallengeModel] = databaseManager.fetchChallenges()
         if !challengesCD.isEmpty {
             for item in challengesCD {
                 self.challenges.append(FavoriteCardCellViewModel(title: item.title!, photos: item.photos, photoArt: nil, favorited: item.favorited))
-                
             }
-            
-            
         }
-        
     }
     
-    public func CardCellVM(forIndex index: Int) -> FavoriteCardCellViewModel {
-        if index < self.challenges.count {
+    public func cardCellVM(forIndex index: Int) -> FavoriteCardCellViewModel {
+        if index < self.challenges.count && index >= 0 {
             return self.challenges[index]
         }
         return FavoriteCardCellViewModel(title: "", photos: nil, photoArt: nil, favorited: true)

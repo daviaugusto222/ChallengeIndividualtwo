@@ -51,16 +51,6 @@
                ReferencedContainer = "container:ChallengeIndividualtwo.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4BECA4A625D15F7A00600E2D"
-               BuildableName = "ChallengeIndividualtwoUITests.xctest"
-               BlueprintName = "ChallengeIndividualtwoUITests"
-               ReferencedContainer = "container:ChallengeIndividualtwo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

@@ -40,7 +40,7 @@ class DetailsViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationBar.tintColor = .green
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(unfavoriteTapped))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(unfavoriteTapped))
     }
     
     func changeUnfilled() {
@@ -85,7 +85,7 @@ extension DetailsViewController: UICollectionViewDelegate, UICollectionViewDataS
             }
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChallengeCardCollectionViewCell", for: indexPath) as! ChallengeCardCollectionViewCell
-            cell.config(viewModel: detailsViewModel.CardCellVM(forIndex: indexPath.row))
+            cell.config(viewModel: detailsViewModel.cardCellVM(forIndex: indexPath.row))
             return cell
         }
     }

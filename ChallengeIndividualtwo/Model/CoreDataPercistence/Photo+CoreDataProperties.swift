@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension Photo {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Photo> {
@@ -22,6 +21,5 @@ extension Photo {
 
 }
 
-extension Photo : Identifiable {
-
+extension Photo: Identifiable {
 }

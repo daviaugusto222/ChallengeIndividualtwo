@@ -43,7 +43,6 @@ class FavoritesViewController: UIViewController {
         callToViewModelForUIUpdate()
     }
     
-    
     func callToViewModelForUIUpdate() {
         self.favoriteViewModel = FavoritesViewModel()
         self.favoriteViewModel.bindViewModelToController = {
@@ -66,23 +65,14 @@ extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCardCollectionViewCell.identifier, for: indexPath) as! FavoriteCardCollectionViewCell
-        cell.config(viewModel: favoriteViewModel.CardCellVM(forIndex: indexPath.row))
+        cell.config(viewModel: favoriteViewModel.cardCellVM(forIndex: indexPath.row))
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
-        //favotirecell to [challengecardcell] = ChallengeViewmodel
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {  
         let selectedFavorite = DetailsViewController()
-//        let fav =
-//        let challenge = ChallengeCardCellViewModel(title: fav.titleLabel(), photo: fav.photosURL())
-
-        selectedFavorite.selectedFavorite = favoriteViewModel.CardCellVM(forIndex: indexPath.row)
-//
-//        selectedVaccine.cardViewController = self
+        selectedFavorite.selectedFavorite = favoriteViewModel.cardCellVM(forIndex: indexPath.row)
         navigationController?.pushViewController(selectedFavorite, animated: true)
         
     }
-    
-    
 }

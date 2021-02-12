@@ -22,7 +22,7 @@ class ShareCardCollectionViewCell: UICollectionViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Woow!\nIsso ficou incrível."
-        label.font = UIFontMetrics.default.scaledFont(for: CustomFonts(name: "Poppins-Medium", size: 22))
+        label.font = UIFontMetrics.default.scaledFont(for: customFonts(name: "Poppins-Medium", size: 22))
         label.textColor = .grayTitle
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -43,7 +43,7 @@ class ShareCardCollectionViewCell: UICollectionViewCell {
     lazy var addArtButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Compartilhar", for: .normal)
-        button.titleLabel?.font = UIFontMetrics.default.scaledFont(for: CustomFonts(name: "Poppins-Medium", size: 17))
+        button.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFonts(name: "Poppins-Medium", size: 17))
         button.setTitleColor(.grayTitle, for: .normal)
         button.tintColor = .grayTitle
         button.backgroundColor = .gray

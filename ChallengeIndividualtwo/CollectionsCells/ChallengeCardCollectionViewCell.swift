@@ -21,7 +21,7 @@ class ChallengeCardCollectionViewCell: UICollectionViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Essa Pose"
-        label.font = UIFontMetrics.default.scaledFont(for: CustomFonts(name: "Poppins-Medium", size: 22))
+        label.font = UIFontMetrics.default.scaledFont(for: customFonts(name: "Poppins-Medium", size: 22))
         label.textColor = .grayTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

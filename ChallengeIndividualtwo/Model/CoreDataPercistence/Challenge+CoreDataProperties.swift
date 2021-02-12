@@ -41,6 +41,5 @@ extension Challenge {
 
 }
 
-extension Challenge : Identifiable {
-
+extension Challenge: Identifiable {
 }

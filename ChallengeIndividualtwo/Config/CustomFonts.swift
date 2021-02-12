@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public func CustomFonts(name: String, size: CGFloat) -> UIFont {
+public func customFonts(name: String, size: CGFloat) -> UIFont {
     
     guard let customFont = UIFont(name: name, size: size) else {
         fatalError("""

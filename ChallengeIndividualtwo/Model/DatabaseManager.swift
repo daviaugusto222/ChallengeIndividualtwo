@@ -85,7 +85,7 @@ class DatabaseManager {
                 photos.append(PhotoModel(src: Src(large2X: photo.src!)))
             }
             
-        }catch {
+        } catch {
             print("Erro carregar fotos")
         }
         
@@ -115,13 +115,9 @@ class DatabaseManager {
                 
             }
             
-            
-            
-            
-        }catch {
+        } catch {
             print("Erro carregar fotos")
         }
-        
         return challenges
     }
 }

@@ -13,7 +13,7 @@ class ChallengeView: UIView {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics.default.scaledFont(for: CustomFonts(name: "Poppins-Bold", size: 22))
+        label.font = UIFontMetrics.default.scaledFont(for: customFonts(name: "Poppins-Bold", size: 22))
         label.numberOfLines = 0
         label.text = "Desenhe, ilustre, pinte, \nrabisque ou faça arte usando…"
         label.textColor = .grayTitle
@@ -45,7 +45,7 @@ class ChallengeView: UIView {
         let button = UIButton(type: .system)
         button.setTitle("Nova Combinação", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFontMetrics.default.scaledFont(for: CustomFonts(name: "Poppins-Medium", size: 14))
+        button.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFonts(name: "Poppins-Medium", size: 14))
         button.layer.cornerRadius = 20
         button.setImage(UIImage(systemName: "arrow.triangle.2.circlepath"), for: .normal)
         button.tintColor = .white
@@ -59,7 +59,7 @@ class ChallengeView: UIView {
         let button = UIButton(type: .system)
         button.setTitle("Favoritos", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFontMetrics.default.scaledFont(for: CustomFonts(name: "Poppins-Medium", size: 14))
+        button.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFonts(name: "Poppins-Medium", size: 14))
         button.layer.cornerRadius = 20
         button.setImage(UIImage(systemName: "heart"), for: .normal)
         button.tintColor = .white
@@ -130,6 +130,5 @@ extension ChallengeView: ViewCode {
     func aditionalConfigurations() {
         backgroundColor = .gray
     }
-    
     
 }

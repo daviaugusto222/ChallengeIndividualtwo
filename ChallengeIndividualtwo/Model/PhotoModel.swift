@@ -2,7 +2,7 @@
 //  PhotoModel.swift
 //  ChallengeIndividualtwo
 //
-//  Created by David Augusto on 08/02/21.
+//  Created by David Augusto on 12/02/21.
 //
 
 import Foundation

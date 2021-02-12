@@ -22,8 +22,9 @@ class FavoriteCardCollectionViewCell: UICollectionViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Essa Pose"
-        label.font = UIFontMetrics.default.scaledFont(for: CustomFonts(name: "Poppins-Medium", size: 22))
+        label.font = UIFontMetrics.default.scaledFont(for: customFonts(name: "Poppins-Medium", size: 17))
         label.textColor = .grayTitle
+        label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -59,7 +60,7 @@ class FavoriteCardCollectionViewCell: UICollectionViewCell {
     }()
     
     lazy var imageStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [imageViewOne,imageViewTwo,imageViewTree])
+        let stackView = UIStackView(arrangedSubviews: [imageViewOne, imageViewTwo, imageViewTree])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
@@ -67,8 +68,6 @@ class FavoriteCardCollectionViewCell: UICollectionViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
-
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -109,7 +108,8 @@ extension FavoriteCardCollectionViewCell: ViewCode {
         ])
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: roundedBackgroundView.topAnchor, constant: 16),
-            titleLabel.centerXAnchor.constraint(equalTo: roundedBackgroundView.centerXAnchor)
+            titleLabel.leadingAnchor.constraint(equalTo: roundedBackgroundView.leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: roundedBackgroundView.trailingAnchor, constant: -16)
         ])
         NSLayoutConstraint.activate([
             imageStackView.topAnchor.constraint(equalTo: roundedBackgroundView.topAnchor, constant: 60),

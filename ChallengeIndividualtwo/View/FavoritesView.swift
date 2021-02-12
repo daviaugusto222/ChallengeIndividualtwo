@@ -27,7 +27,6 @@ class FavoritesView: UIView {
         return collection
     }()
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
@@ -56,6 +55,4 @@ extension FavoritesView: ViewCode {
     func aditionalConfigurations() {
         backgroundColor = .green
     }
-    
-    
 }

@@ -11,7 +11,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -20,7 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         navigationController.navigationBar.prefersLargeTitles = false
         navigationController.navigationItem.largeTitleDisplayMode = .automatic
         
-
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.overrideUserInterfaceStyle = .light
         window?.windowScene = windowScene
@@ -61,7 +59,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //DatabaseManager.saveContext()
         
     }
-
-
 }
-

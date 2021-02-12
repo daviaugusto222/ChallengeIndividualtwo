@@ -43,7 +43,6 @@ class DetailsViewModel: NSObject {
         return true
     }
 
-
     func getPhotos(challenge: FavoriteCardCellViewModel) {
         
         guard let urls = challenge.photosURL() else {return}
@@ -52,10 +51,9 @@ class DetailsViewModel: NSObject {
             self.photos.append(photo)
         }
         
-        
     }
 
-    public func CardCellVM(forIndex index: Int) -> ChallengeCardCellViewModel {
+    public func cardCellVM(forIndex index: Int) -> ChallengeCardCellViewModel {
         if index < self.photos.count {
             return self.photos[index]
         }

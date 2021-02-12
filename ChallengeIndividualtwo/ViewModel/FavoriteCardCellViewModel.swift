@@ -8,7 +8,7 @@
 import UIKit
 
 class FavoriteCardCellViewModel: NSObject {
-    private let title: String?
+    private let title: String
     private let photos: [PhotoModel]?
     private let photoArt: UIImage?
     private let favorited: Bool
@@ -21,7 +21,7 @@ class FavoriteCardCellViewModel: NSObject {
     }
     
     public func titleLabel() -> String {
-        return self.title ?? "Titulo padrao"
+        return  self.title
     }
     
     public func photosURL() -> [URL]? {

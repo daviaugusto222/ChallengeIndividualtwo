@@ -10,19 +10,16 @@ import Foundation
 enum HTTP {
     case get
     
-   func request(url: URL?,
-                 header: [String : String] = ["Content-Type":"application/json"],
-                 body: [String : Any] = [:],
-                 completion: @escaping (Data?, HTTPURLResponse?, String?) -> Void = { data, response, error in }) {
+    func request(url: URL?, header: [String: String] = ["Content-Type":"application/json"], body: [String: Any] = [:], completion: @escaping (Data?, HTTPURLResponse?, String?) -> Void = { data, response, error in }) {
         
         guard let url = url else {
             completion(nil, nil, "URL Invalida")
             return
         }
         
-    var urlRequest = URLRequest(url: url)
-    urlRequest.allHTTPHeaderFields = header
-    //urlRequest.httpBody = body
+        var urlRequest = URLRequest(url: url)
+        urlRequest.allHTTPHeaderFields = header
+        //urlRequest.httpBody = body
         switch self {
         case .get:
             

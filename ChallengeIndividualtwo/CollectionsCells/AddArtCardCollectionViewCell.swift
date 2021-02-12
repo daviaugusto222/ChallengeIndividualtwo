@@ -23,7 +23,7 @@ class AddArtCardCollectionViewCell: UICollectionViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Misturando\ntudo isso o que\nvocê conseguiu fazer?"
-        label.font = UIFontMetrics.default.scaledFont(for: CustomFonts(name: "Poppins-Medium", size: 22))
+        label.font = UIFontMetrics.default.scaledFont(for: customFonts(name: "Poppins-Medium", size: 22))
         label.textColor = .grayTitle
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -34,7 +34,7 @@ class AddArtCardCollectionViewCell: UICollectionViewCell {
     lazy var addArtButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Adicionar Arte", for: .normal)
-        button.titleLabel?.font = UIFontMetrics.default.scaledFont(for: CustomFonts(name: "Poppins-Medium", size: 17))
+        button.titleLabel?.font = UIFontMetrics.default.scaledFont(for: customFonts(name: "Poppins-Medium", size: 17))
         button.setTitleColor(.grayTitle, for: .normal)
         button.tintColor = .grayTitle
         button.backgroundColor = .gray

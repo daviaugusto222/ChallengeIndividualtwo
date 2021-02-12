@@ -14,25 +14,22 @@ enum ServiceApi: Router {
     
     var description: String {
         switch self {
-            case .person: return "Essa pessoa"
-            case .pose: return "Essa pose"
-            case .scenery: return "Essa paisagem"
-        }
-    }
-
-    var hostname: String {
-        get {
-            return "https://api.pexels.com/v1"
+        case .person: return "Essa pessoa"
+        case .pose: return "Essa pose"
+        case .scenery: return "Essa paisagem"
         }
     }
     
+    var hostname: String {
+        return "https://api.pexels.com/v1"
+    }
+    
     var url: URL? {
-        get {
-            switch self {
-            case .person: return URL(string: "\(hostname)/search?query=Person")
-            case .pose: return URL(string: "\(hostname)/search?query=Pose")
-            case .scenery: return URL(string: "\(hostname)/search?query=Scenery")
-            }
+        switch self {
+        case .person: return URL(string: "\(hostname)/search?query=Person")
+        case .pose: return URL(string: "\(hostname)/search?query=Pose")
+        case .scenery: return URL(string: "\(hostname)/search?query=Scenery")
+            
         }
     }
     

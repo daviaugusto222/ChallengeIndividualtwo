@@ -36,36 +36,27 @@ class ChallengeViewModel: NSObject {
         return 3
     }
     
-    func favoreted() -> Bool {
-        return true
-    }
-    
     func favoritedChallenge() {
         
         let context = DatabaseManager.persistentContainer.viewContext
-        
+        var title = ""
         let newChallenge = Challenge(context: context)
         newChallenge.favorited = true
-        newChallenge.title = "Sei nao depois penso"
-
         
         for photo in photos {
             let newPhoto = Photo(context: context)
             newPhoto.src = photo.photoURL()?.absoluteString
             newPhoto.title = photo.titleLabel()
+            title.append("." + photo.titleLabel())
             
             newChallenge.addToPhotos(newPhoto)
         }
         
+        newChallenge.title = title
         
         user?.addToChallengers(newChallenge)
         
         databaseManager.saveContext()
-        
-    }
-    
-    func artAdded() -> Bool {
-        return true
     }
     
     func createNewCombination() -> Int {
@@ -77,17 +68,17 @@ class ChallengeViewModel: NSObject {
        
         self.photos = []
         let page = createNewCombination()
-        self.apiService.searchPhoto(type: .person ,page: page){ (photoPerson) in
+        self.apiService.searchPhoto(type: .person, page: page) { (photoPerson) in
             let cell = ChallengeCardCellViewModel(title: ServiceApi.person.description, photo: photoPerson!)
             self.photos.append(cell)
             
         }
-        self.apiService.searchPhoto(type: .pose, page: page){ (photoPose) in
+        self.apiService.searchPhoto(type: .pose, page: page) { (photoPose) in
             let cell = ChallengeCardCellViewModel(title: ServiceApi.pose.description, photo: photoPose!)
             self.photos.append(cell)
             
         }
-        self.apiService.searchPhoto(type: .scenery, page: page){ (photoScenery) in
+        self.apiService.searchPhoto(type: .scenery, page: page) { (photoScenery) in
             let cell = ChallengeCardCellViewModel(title: ServiceApi.scenery.description, photo: photoScenery!)
             self.photos.append(cell)
             
@@ -95,7 +86,7 @@ class ChallengeViewModel: NSObject {
         
     }
     
-    public func CardCellVM(forIndex index: Int) -> ChallengeCardCellViewModel {
+    public func cardCellVM(forIndex index: Int) -> ChallengeCardCellViewModel {
         if index < self.photos.count {
             return self.photos[index]
         }

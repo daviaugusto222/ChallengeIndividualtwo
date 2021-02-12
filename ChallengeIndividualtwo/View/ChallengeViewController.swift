@@ -46,9 +46,6 @@ class ChallengeViewController: UIViewController {
     }
     
     @objc func favoriteTapped() {
-        if challengeViewModel.favoreted() {
-            //FAZ ALGO AQUI AAAAAA
-        }
         navigationItem.rightBarButtonItem?.image = UIImage(systemName: "heart.fill")
         challengeViewModel.favoritedChallenge()
     }
@@ -77,18 +74,17 @@ extension ChallengeViewController: UICollectionViewDelegate, UICollectionViewDat
         
         switch indexPath.row {
         case -1:
-            if challengeViewModel.artAdded() {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddArtCardCollectionViewCell", for: indexPath) as! AddArtCardCollectionViewCell
-                cell.delegate = self
-                return cell
-            } else {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShareCardCollectionViewCell", for: indexPath) as! ShareCardCollectionViewCell
-                return cell
-            }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddArtCardCollectionViewCell", for: indexPath) as! AddArtCardCollectionViewCell
+            cell.delegate = self
+            return cell
+        case -2:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShareCardCollectionViewCell", for: indexPath) as! ShareCardCollectionViewCell
+            return cell
+            
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChallengeCardCollectionViewCell", for: indexPath) as! ChallengeCardCollectionViewCell
             
-            cell.config(viewModel: challengeViewModel.CardCellVM(forIndex: indexPath.row))
+            cell.config(viewModel: challengeViewModel.cardCellVM(forIndex: indexPath.row))
             return cell
         }
     }
@@ -109,26 +105,26 @@ extension ChallengeViewController: ChallengeDelegate {
 extension ChallengeViewController: AddArtDelegate {
     func addArt() {
         let picker = UIImagePickerController()
-            picker.allowsEditing = true
-            picker.delegate = self
-            present(picker, animated: true)
+        picker.allowsEditing = true
+        picker.delegate = self
+        present(picker, animated: true)
     }
 }
 
 extension ChallengeViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let image = info[.editedImage] as? UIImage else { return }
         
         let imageName = UUID().uuidString
         let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
-
+        
         if let jpegData = image.jpegData(compressionQuality: 0.8) {
             try? jpegData.write(to: imagePath)
         }
-
+        
         dismiss(animated: true)
     }
-
+    
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]

@@ -9,11 +9,10 @@ import UIKit
 
 class DetailsView: UIView {
     
-    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cellWidthConstant: CGFloat = UIScreen.main.bounds.width * 0.9
-        let cellHeightConstant: CGFloat = UIScreen.main.bounds.height * 0.59
+        let cellHeightConstant: CGFloat = UIScreen.main.bounds.height * 0.7
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 0
@@ -29,7 +28,6 @@ class DetailsView: UIView {
         collection.register(ShareCardCollectionViewCell.self, forCellWithReuseIdentifier: "ShareCardCollectionViewCell")
         return collection
     }()
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
