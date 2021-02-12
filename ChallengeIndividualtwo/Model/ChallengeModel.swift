@@ -9,7 +9,7 @@ import Foundation
 
 struct ChallengeModel {
     let title: String?
-    let photos: [PhotoModel]
+    let photos: [PhotoChallengeModel]
     let photoArt: Data?
     let favorited: Bool
 }

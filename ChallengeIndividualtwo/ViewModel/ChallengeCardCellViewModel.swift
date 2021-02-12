@@ -9,9 +9,9 @@ import Foundation
 
 public class ChallengeCardCellViewModel: NSObject {
     private let title: String
-    private let photo: PhotoModel?
+    private let photo: PhotoChallengeModel?
     
-    init(title: String, photo: PhotoModel?) {
+    init(title: String, photo: PhotoChallengeModel?) {
         self.title = title
         self.photo = photo
     }
@@ -20,8 +20,13 @@ public class ChallengeCardCellViewModel: NSObject {
         return self.title
     }
     
+    public func titlePhoto() -> String? {
+        guard let titlePhoto = photo?.titlePhoto else { return "" }
+        return titlePhoto
+    }
+    
     public func photoURL() -> URL? {
-        guard let imgURL = photo?.src.large2X else { return URL(string: "") }
-        return URL(string: imgURL)
+        guard let imgURL = photo?.linkPhoto else { return URL(string: "") }
+        return imgURL
     }
 }

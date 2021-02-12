@@ -39,6 +39,7 @@ class FavoritesViewModel: NSObject {
         let challengesCD: [ChallengeModel] = databaseManager.fetchChallenges()
         if !challengesCD.isEmpty {
             for item in challengesCD {
+               
                 self.challenges.append(FavoriteCardCellViewModel(title: item.title!, photos: item.photos, photoArt: nil, favorited: item.favorited))
             }
         }

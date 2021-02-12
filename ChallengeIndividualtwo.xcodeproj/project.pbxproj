@@ -38,6 +38,7 @@
 		4BB0389525D5DCA20064306F /* ChallengeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB0389425D5DCA20064306F /* ChallengeViewModelTests.swift */; };
 		4BB0389D25D5DEC70064306F /* FavoriteCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB0389C25D5DEC70064306F /* FavoriteCellViewModelTests.swift */; };
 		4BB038A225D6B0B30064306F /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB038A125D6B0B30064306F /* PhotoModel.swift */; };
+		4BB038A725D6C0C30064306F /* PhotoChallengeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB038A625D6C0C30064306F /* PhotoChallengeModel.swift */; };
 		4BECA48725D15F7900600E2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BECA48625D15F7900600E2D /* AppDelegate.swift */; };
 		4BECA48925D15F7900600E2D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BECA48825D15F7900600E2D /* SceneDelegate.swift */; };
 		4BECA49125D15F7900600E2D /* ChallengeIndividualtwo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4BECA48F25D15F7900600E2D /* ChallengeIndividualtwo.xcdatamodeld */; };
@@ -108,6 +109,7 @@
 		4BB0389425D5DCA20064306F /* ChallengeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewModelTests.swift; sourceTree = "<group>"; };
 		4BB0389C25D5DEC70064306F /* FavoriteCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCellViewModelTests.swift; sourceTree = "<group>"; };
 		4BB038A125D6B0B30064306F /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
+		4BB038A625D6C0C30064306F /* PhotoChallengeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoChallengeModel.swift; sourceTree = "<group>"; };
 		4BECA48325D15F7900600E2D /* ChallengeIndividualtwo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChallengeIndividualtwo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BECA48625D15F7900600E2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4BECA48825D15F7900600E2D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 				4B912CA525D402C000ABF7EE /* ChallengeModel.swift */,
 				4BECA4D025D16C4100600E2D /* PageModel.swift */,
 				4BB038A125D6B0B30064306F /* PhotoModel.swift */,
+				4BB038A625D6C0C30064306F /* PhotoChallengeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				4BB0382625D498050064306F /* User+CoreDataProperties.swift in Sources */,
 				4BB038A225D6B0B30064306F /* PhotoModel.swift in Sources */,
 				4BECA48925D15F7900600E2D /* SceneDelegate.swift in Sources */,
+				4BB038A725D6C0C30064306F /* PhotoChallengeModel.swift in Sources */,
 				4BECA4E725D1700300600E2D /* ViewCode.swift in Sources */,
 				4B912C6825D2C3A500ABF7EE /* ServiceApi.swift in Sources */,
 				4BECA4DA25D16E9F00600E2D /* ChallengeView.swift in Sources */,

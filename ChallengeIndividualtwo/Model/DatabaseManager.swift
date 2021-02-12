@@ -98,7 +98,7 @@ class DatabaseManager {
         request.returnsObjectsAsFaults = false
         request.includesSubentities = true
         var challenges: [ChallengeModel] = []
-        var photosChallenge: [PhotoModel] = []
+        var photosChallenge: [PhotoChallengeModel] = []
         do {
             let result = try context.fetch(request)
             for challenge in result {
@@ -106,7 +106,7 @@ class DatabaseManager {
                 if let photos = challenge.photos {
                     photos.forEach({ (foto) in
                         guard let photo = foto as? Photo else {return}
-                        photosChallenge.append(PhotoModel(src: Src(large2X: photo.src!)))
+                        photosChallenge.append(PhotoChallengeModel(titlePhoto: photo.title ?? "", linkPhoto: URL(string: photo.src!)! ))
                     })
                 }
                 

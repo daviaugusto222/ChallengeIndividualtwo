@@ -47,11 +47,17 @@ class ChallengeViewModel: NSObject {
             let newPhoto = Photo(context: context)
             newPhoto.src = photo.photoURL()?.absoluteString
             newPhoto.title = photo.titleLabel()
-            title.append("." + photo.titleLabel())
+            //title.append(photo.titleLabel() + ".")
             
             newChallenge.addToPhotos(newPhoto)
         }
         
+        let components = Calendar.current.dateComponents([.day, .month, .year], from: Date())
+        let day = components.day ?? 0
+        let month = components.month ?? 0
+//        let year = components.year ?? 0
+//        let date = Calendar.current.date(from: components) ?? Date()
+        title.append("\(day)/\(month)")
         newChallenge.title = title
         
         user?.addToChallengers(newChallenge)
@@ -69,17 +75,17 @@ class ChallengeViewModel: NSObject {
         self.photos = []
         let page = createNewCombination()
         self.apiService.searchPhoto(type: .person, page: page) { (photoPerson) in
-            let cell = ChallengeCardCellViewModel(title: ServiceApi.person.description, photo: photoPerson!)
+            let cell = ChallengeCardCellViewModel(title: ServiceApi.person.description, photo: PhotoChallengeModel(titlePhoto: ServiceApi.person.description, linkPhoto: URL(string: (photoPerson?.src.large2X)!) ))
             self.photos.append(cell)
             
         }
         self.apiService.searchPhoto(type: .pose, page: page) { (photoPose) in
-            let cell = ChallengeCardCellViewModel(title: ServiceApi.pose.description, photo: photoPose!)
+            let cell = ChallengeCardCellViewModel(title: ServiceApi.pose.description, photo: PhotoChallengeModel(titlePhoto: ServiceApi.pose.description, linkPhoto: URL(string: (photoPose?.src.large2X)!) ))
             self.photos.append(cell)
             
         }
         self.apiService.searchPhoto(type: .scenery, page: page) { (photoScenery) in
-            let cell = ChallengeCardCellViewModel(title: ServiceApi.scenery.description, photo: photoScenery!)
+            let cell = ChallengeCardCellViewModel(title: ServiceApi.scenery.description, photo: PhotoChallengeModel(titlePhoto: ServiceApi.scenery.description, linkPhoto: URL(string: (photoScenery?.src.large2X)!) ))
             self.photos.append(cell)
             
         }
@@ -90,7 +96,7 @@ class ChallengeViewModel: NSObject {
         if index < self.photos.count {
             return self.photos[index]
         }
-        return ChallengeCardCellViewModel(title: "", photo: PhotoModel(src: Src(large2X: "")))
+        return ChallengeCardCellViewModel(title: "", photo: PhotoChallengeModel(titlePhoto: "", linkPhoto: URL(string: "") ?? nil))
     }
     
 }

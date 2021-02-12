@@ -32,22 +32,15 @@ class DetailsViewModel: NSObject {
     func favoreted() -> Bool {
         return true
     }
-//
-//    func favoritedChallenge() {
-//
-//        //Detelar do coredata
-//
-//    }
-//
+
     func artAdded() -> Bool {
         return true
     }
 
     func getPhotos(challenge: FavoriteCardCellViewModel) {
-        
-        guard let urls = challenge.photosURL() else {return}
-        for url in urls {
-            let photo = ChallengeCardCellViewModel(title: challenge.titleLabel(), photo: PhotoModel(src: Src(large2X: url.absoluteString)))
+        let photos = challenge.getPhotos()
+        for photo in photos {
+            let photo = ChallengeCardCellViewModel(title: challenge.titleLabel(), photo: photo)
             self.photos.append(photo)
         }
         
@@ -57,6 +50,6 @@ class DetailsViewModel: NSObject {
         if index < self.photos.count {
             return self.photos[index]
         }
-        return ChallengeCardCellViewModel(title: "", photo: PhotoModel(src: Src(large2X: "")))
+        return ChallengeCardCellViewModel(title: "", photo: PhotoChallengeModel(titlePhoto: "", linkPhoto: URL(string: "")!))
     }
 }

@@ -57,6 +57,6 @@ extension DetailsView: ViewCode {
     }
     
     func aditionalConfigurations() {
-        backgroundColor = .gray
+        backgroundColor = .green
     }
 }

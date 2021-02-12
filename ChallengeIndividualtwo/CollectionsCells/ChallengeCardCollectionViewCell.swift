@@ -56,7 +56,9 @@ class ChallengeCardCollectionViewCell: UICollectionViewCell {
     }
     
     func config(viewModel: ChallengeCardCellViewModel) {
-        self.titleLabel.text = viewModel.titleLabel()
+        
+        self.titleLabel.text = viewModel.titlePhoto()
+//        self.titleLabel.text = viewModel.titleLabel()
         if let img = viewModel.photoURL() {
             self.imageView.load(url: img)
         }
