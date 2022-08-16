@@ -10,6 +10,7 @@ import UIKit
 class ChallengeViewController: UIViewController {
     
     private var challengeViewModel: ChallengeViewModel!
+    var countCalls = 0
     
     lazy var challengeView: ChallengeView = {
         let view = ChallengeView()
@@ -71,29 +72,31 @@ extension ChallengeViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        switch indexPath.row {
-        case -1:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddArtCardCollectionViewCell", for: indexPath) as! AddArtCardCollectionViewCell
-            cell.delegate = self
-            return cell
-        case -2:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShareCardCollectionViewCell", for: indexPath) as! ShareCardCollectionViewCell
-            return cell
-            
-        default:
+
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChallengeCardCollectionViewCell", for: indexPath) as! ChallengeCardCollectionViewCell
             
             cell.config(viewModel: challengeViewModel.cardCellVM(forIndex: indexPath.row))
             return cell
-        }
+        
     }
 }
 
 extension ChallengeViewController: ChallengeDelegate {
     func newCombination() {
-        challengeViewModel.searchPhotos()
-        changeUnfilled()
+        
+        if countCalls <= 10 {
+            challengeViewModel.searchPhotos()
+            changeUnfilled()
+            countCalls += 1
+        } else {
+            let alert = UIAlertController(title: "Limite atingido", message: "Para esse teste, existe uma limite máximo de 10 requisições.", preferredStyle: .alert)
+            let alertAction = UIAlertAction(title: "OK", style: .default, handler: { (alert: UIAlertAction!) -> Void in})
+            
+            alert.addAction(alertAction)
+            
+            self.present(alert, animated: true, completion: nil)
+            
+        }
     }
     
     func newFavorite() {

@@ -11,9 +11,7 @@ import CoreData
 class ChallengeViewModel: NSObject {
     
     private var apiService: CategoryRepository!
-    var databaseManager = DatabaseManager()
-    
-    var user: User?
+    private var databaseManager = DatabaseManager.shared
     
     private(set) var photos: [ChallengeCardCellViewModel] = [] {
         didSet {
@@ -26,7 +24,6 @@ class ChallengeViewModel: NSObject {
     override init() {
         super.init()
         self.apiService = CategoryRepository()
-        user = databaseManager.getUser()
         searchPhotos()
     }
     
@@ -38,31 +35,8 @@ class ChallengeViewModel: NSObject {
     
     func favoritedChallenge() {
         
-        let context = DatabaseManager.persistentContainer.viewContext
-        var title = ""
-        let newChallenge = Challenge(context: context)
-        newChallenge.favorited = true
+        databaseManager.saveFavorites(photos: photos)
         
-        for photo in photos {
-            let newPhoto = Photo(context: context)
-            newPhoto.src = photo.photoURL()?.absoluteString
-            newPhoto.title = photo.titleLabel()
-            //title.append(photo.titleLabel() + ".")
-            
-            newChallenge.addToPhotos(newPhoto)
-        }
-        
-        let components = Calendar.current.dateComponents([.day, .month, .year], from: Date())
-        let day = components.day ?? 0
-        let month = components.month ?? 0
-//        let year = components.year ?? 0
-//        let date = Calendar.current.date(from: components) ?? Date()
-        title.append("\(day)/\(month)")
-        newChallenge.title = title
-        
-        user?.addToChallengers(newChallenge)
-        
-        databaseManager.saveContext()
     }
     
     func createNewCombination() -> Int {
@@ -71,22 +45,28 @@ class ChallengeViewModel: NSObject {
     }
     
     func searchPhotos() {
-       
+        
         self.photos = []
         let page = createNewCombination()
         self.apiService.searchPhoto(type: .person, page: page) { (photoPerson) in
-            let cell = ChallengeCardCellViewModel(title: ServiceApi.person.description, photo: PhotoChallengeModel(titlePhoto: ServiceApi.person.description, linkPhoto: URL(string: (photoPerson?.src.large2X)!) ))
-            self.photos.append(cell)
+            if let photoPerson = photoPerson {
+                let cell = ChallengeCardCellViewModel(title: ServiceApi.person.description, photo: PhotoChallengeModel(titlePhoto: ServiceApi.person.description, linkPhoto: URL(string: photoPerson.src.large2X) ))
+                self.photos.append(cell)
+            }
             
         }
         self.apiService.searchPhoto(type: .pose, page: page) { (photoPose) in
-            let cell = ChallengeCardCellViewModel(title: ServiceApi.pose.description, photo: PhotoChallengeModel(titlePhoto: ServiceApi.pose.description, linkPhoto: URL(string: (photoPose?.src.large2X)!) ))
-            self.photos.append(cell)
+            if let photoPose = photoPose {
+                let cell = ChallengeCardCellViewModel(title: ServiceApi.pose.description, photo: PhotoChallengeModel(titlePhoto: ServiceApi.pose.description, linkPhoto: URL(string: photoPose.src.large2X) ))
+                self.photos.append(cell)
+            }
             
         }
         self.apiService.searchPhoto(type: .scenery, page: page) { (photoScenery) in
-            let cell = ChallengeCardCellViewModel(title: ServiceApi.scenery.description, photo: PhotoChallengeModel(titlePhoto: ServiceApi.scenery.description, linkPhoto: URL(string: (photoScenery?.src.large2X)!) ))
-            self.photos.append(cell)
+            if let photoScenery = photoScenery {
+                let cell = ChallengeCardCellViewModel(title: ServiceApi.scenery.description, photo: PhotoChallengeModel(titlePhoto: ServiceApi.scenery.description, linkPhoto: URL(string: photoScenery.src.large2X) ))
+                self.photos.append(cell)
+            }
             
         }
         

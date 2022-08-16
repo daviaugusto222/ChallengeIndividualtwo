@@ -10,7 +10,7 @@ import Foundation
 enum HTTP {
     case get
     
-    func request(url: URL?, header: [String: String] = ["Content-Type":"application/json"], body: [String: Any] = [:], completion: @escaping (Data?, HTTPURLResponse?, String?) -> Void = { data, response, error in }) {
+    func request(url: URL?, header: [String: String] = ["Content-Type": "application/json"], body: [String: Any] = [:], session: URLSession = URLSession.shared, completion: @escaping (Data?, HTTPURLResponse?, String?) -> Void = { data, response, error in }) {
         
         guard let url = url else {
             completion(nil, nil, "URL Invalida")
@@ -23,7 +23,7 @@ enum HTTP {
         switch self {
         case .get:
             
-            URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            session.dataTask(with: urlRequest) { data, response, error in
                 completion(data, response as? HTTPURLResponse, error?.localizedDescription)
             }.resume()
         }

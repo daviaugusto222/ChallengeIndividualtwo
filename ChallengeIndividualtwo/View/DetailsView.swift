@@ -48,10 +48,10 @@ extension DetailsView: ViewCode {
     func setUpLayoutConstraints() {
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 40),
+            collectionView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 20),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: 40)
+            collectionView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -20)
         ])
         
     }

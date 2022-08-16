@@ -32,11 +32,11 @@ class CategoryRepository {
                 
                 if let search = try? JSONDecoder().decode(PageModel.self, from: data) {
                     guard let photo = search.photos.first else {
-                        return print("Nil Photo")
+                        return completion(nil)
                     }
                     completion(photo)
                 } else {
-                    print("Algo deu errado :(")
+                    completion(nil)
                 }
                 return
             default:

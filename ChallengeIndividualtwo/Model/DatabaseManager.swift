@@ -8,47 +8,46 @@
 import Foundation
 import CoreData
 
+enum StorageType {
+    case persistent, inMemory
+}
+
 class DatabaseManager {
     
-    // MARK: - Core Data stack
+    public static let shared = DatabaseManager(.persistent)
+    public static let inMemory = DatabaseManager(.inMemory)
     
-    static var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-         */
-        let container = NSPersistentContainer(name: "ChallengeIndividualtwo")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
+    private var persistentContainer: NSPersistentContainer
+    
+    private static let modelName: String = "ChallengeIndividualtwo"
+    
+    private(set) lazy var managedContext: NSManagedObjectContext = {
+        return self.persistentContainer.viewContext
     }()
     
-    // MARK: - Core Data Saving support
+    private init(_ storageType: StorageType = .persistent) {
+        self.persistentContainer = NSPersistentContainer(name: DatabaseManager.modelName)
+        
+        if storageType == .inMemory {
+            let description = NSPersistentStoreDescription()
+            description.type = NSInMemoryStoreType
+            self.persistentContainer.persistentStoreDescriptions = [description]
+        }
+        
+        self.persistentContainer.loadPersistentStores { (storeDescription, error) in
+            if let error = error as NSError? {
+                print("CoreDataStack Error - Unresolved error \(error), \(error.userInfo)")
+            }
+        }
+        
+    }
     
     func saveContext() {
-        let context = DatabaseManager.persistentContainer.viewContext
+        let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
@@ -56,7 +55,7 @@ class DatabaseManager {
     }
     
     func getUser() -> User {
-        let context = DatabaseManager.persistentContainer.viewContext
+        let context = managedContext
         var setUser = [User]()
         do {
             setUser = try (context.fetch(User.fetchRequest()) as? [User])!
@@ -74,13 +73,13 @@ class DatabaseManager {
     }
     
     func fetchPhotos() -> [PhotoModel] {
-        let context = DatabaseManager.persistentContainer.viewContext
+        let context = managedContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Photo")
         request.returnsObjectsAsFaults = false
         var photos: [PhotoModel] = []
         do {
             let result = try context.fetch(request)
-            let new = result as! [Photo]
+            guard let new = result as? [Photo] else {return photos}
             for photo in new {
                 photos.append(PhotoModel(src: Src(large2X: photo.src!)))
             }
@@ -93,7 +92,7 @@ class DatabaseManager {
     }
     
     func fetchChallenges() -> [ChallengeModel] {
-        let context = DatabaseManager.persistentContainer.viewContext
+        let context = managedContext
         let request = NSFetchRequest<Challenge>(entityName: "Challenge")
         request.returnsObjectsAsFaults = false
         request.includesSubentities = true
@@ -119,5 +118,34 @@ class DatabaseManager {
             print("Erro carregar fotos")
         }
         return challenges
+    }
+    
+    func saveFavorites(photos: [ChallengeCardCellViewModel]) {
+        
+        let context = managedContext
+        var title = ""
+        let newChallenge = Challenge(context: context)
+        newChallenge.favorited = true
+        
+        for photo in photos {
+            let newPhoto = Photo(context: context)
+            newPhoto.src = photo.photoURL()?.absoluteString
+            newPhoto.title = photo.titleLabel()
+            //title.append(photo.titleLabel() + ".")
+            
+            newChallenge.addToPhotos(newPhoto)
+        }
+        
+        let components = Calendar.current.dateComponents([.day, .month, .year], from: Date())
+        let day = components.day ?? 0
+        //let month = components.month ?? 0
+        //        let year = components.year ?? 0
+        //        let date = Calendar.current.date(from: components) ?? Date()
+        title.append("\(day) de Fevereiro")
+        newChallenge.title = title
+        
+        getUser().addToChallengers(newChallenge)
+        
+        saveContext()
     }
 }

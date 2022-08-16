@@ -9,7 +9,7 @@ import UIKit
 
 class DetailsViewModel: NSObject {
     
-    var databaseManager = DatabaseManager()
+    var databaseManager = DatabaseManager.shared
 
     private(set) var photos: [ChallengeCardCellViewModel] = [] {
         didSet {

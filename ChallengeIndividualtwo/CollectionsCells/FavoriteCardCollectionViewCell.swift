@@ -21,7 +21,7 @@ class FavoriteCardCollectionViewCell: UICollectionViewCell {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Essa Pose"
+        label.text = ""
         label.font = UIFontMetrics.default.scaledFont(for: customFonts(name: "Poppins-Medium", size: 17))
         label.textColor = .grayTitle
         label.adjustsFontForContentSizeCategory = true
@@ -108,8 +108,7 @@ extension FavoriteCardCollectionViewCell: ViewCode {
         ])
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: roundedBackgroundView.topAnchor, constant: 16),
-            titleLabel.leadingAnchor.constraint(equalTo: roundedBackgroundView.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: roundedBackgroundView.trailingAnchor, constant: -16)
+            titleLabel.centerXAnchor.constraint(equalTo: roundedBackgroundView.centerXAnchor)
         ])
         NSLayoutConstraint.activate([
             imageStackView.topAnchor.constraint(equalTo: roundedBackgroundView.topAnchor, constant: 60),

@@ -11,7 +11,7 @@ import XCTest
 class FavoriteCellViewModelTests: XCTestCase {
 
     var favoriteCellViewModel: FavoriteCardCellViewModel!
-    var photos: [PhotoModel]!
+    var photos: [PhotoChallengeModel]!
     
     override func setUpWithError() throws {
         
@@ -25,7 +25,7 @@ class FavoriteCellViewModelTests: XCTestCase {
     }
 
     func testPhotosUrl() throws {
-        photos = [PhotoModel(src: Src(large2X: "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg"))]
+        photos = [PhotoChallengeModel(titlePhoto: "Essa Pose", linkPhoto: URL(string: "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg"))]
         favoriteCellViewModel = FavoriteCardCellViewModel(title: "", photos: photos, photoArt: nil, favorited: false)
         let expectedUrl = "https://images.pexels.com/photos/2014422/pexels-photo-2014422.jpeg"
         let urls = favoriteCellViewModel.photosURL()

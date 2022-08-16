@@ -10,7 +10,7 @@ import CoreData
 
 class FavoritesViewModel: NSObject {
     
-    var databaseManager = DatabaseManager()
+    private var databaseManager: DatabaseManager!
 
     private(set) var challenges: [FavoriteCardCellViewModel] = [] {
         didSet {
@@ -20,18 +20,20 @@ class FavoritesViewModel: NSObject {
         }
     }
     
-    override init() {
+    init(_ type: StorageType = .persistent) {
         super.init()
+        switch type {
+        case .inMemory:
+            databaseManager = DatabaseManager.inMemory
+        default:
+            databaseManager = DatabaseManager.shared
+        }
         fetchPhotosFromCD()
     }
     
     var bindViewModelToController : (() -> ()) = {}
     
     func numberOfRows() -> Int {
-        let rows = self.challenges.count
-        if rows == 0 {
-            self.fetchPhotosFromCD()
-        }
         return challenges.count
     }
     
